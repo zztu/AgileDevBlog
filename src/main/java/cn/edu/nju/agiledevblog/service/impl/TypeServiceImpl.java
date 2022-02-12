@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * @ClassName: TypeServiceImpl
  * @Description: 分类业务层接口实现
- * @Author: PANPAN
  */
 @Service
 public class TypeServiceImpl implements TypeService {

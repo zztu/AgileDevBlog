@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * @ClassName: TypeController
  * @Description: 分类控制器
- * @Author: PANPAN
  */
 @Controller
 @RequestMapping("/admin")

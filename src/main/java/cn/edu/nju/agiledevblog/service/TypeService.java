@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * @InterfaceName: TypeService
  * @Description: 分类业务层接口
- * @Author: PANPAN
  */
 public interface TypeService {
 
