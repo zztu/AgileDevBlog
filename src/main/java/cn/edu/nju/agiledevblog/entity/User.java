@@ -1,12 +1,13 @@
 package cn.edu.nju.agiledevblog.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @ClassName: User
  * @Description: 用户实体类
  */
-public class User {
+public class User implements Serializable {
 
     private Long id;
     private String nickname;

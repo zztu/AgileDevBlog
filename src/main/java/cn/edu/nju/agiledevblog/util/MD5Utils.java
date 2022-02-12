@@ -1,5 +1,8 @@
 package cn.edu.nju.agiledevblog.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -31,7 +34,7 @@ public class MD5Utils {
             }
             return stringBuffer.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            LoggerFactory.getLogger(MD5Utils.class).error(e.toString());
             return null;
         }
     }
