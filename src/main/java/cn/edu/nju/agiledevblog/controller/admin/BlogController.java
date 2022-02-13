@@ -63,7 +63,7 @@ public class BlogController {
     }
 
     //博客列表
-    @RequestMapping("/blogs")
+    @GetMapping("/blogs")
     public String blogs(Model model, @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
         //按照排序字段 倒序 排序
         String orderBy = "update_time desc";
