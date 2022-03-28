@@ -63,23 +63,23 @@ public class BlogServiceImpl implements BlogService {
         return blogDao.searchByTitleAndType(searchBlog);
     }
 
-    // //查询首页最新博客列表信息
-    // @Override
-    // public List<FirstPageBlog> getAllFirstPageBlog() {
-    //     return blogDao.getFirstPageBlog();
-    // }
-    //
-    // //查询首页最新推荐信息
-    // @Override
-    // public List<RecommendBlog> getRecommendedBlog() {
-    //     return blogDao.getAllRecommendBlog();
-    // }
-    //
-    // //搜索博客列表
-    // @Override
-    // public List<FirstPageBlog> getSearchBlog(String query) {
-    //     return blogDao.getSearchBlog(query);
-    // }
+    //查询首页最新博客列表信息
+    @Override
+    public List<FirstPageBlog> getAllFirstPageBlog() {
+        return blogDao.getFirstPageBlog();
+    }
+
+    //查询首页最新推荐信息
+    @Override
+    public List<RecommendBlog> getRecommendedBlog() {
+        return blogDao.getAllRecommendBlog();
+    }
+
+    //搜索博客列表
+    @Override
+    public List<FirstPageBlog> getSearchBlog(String query) {
+        return blogDao.getSearchBlog(query);
+    }
 
     //统计博客总数
     @Override
@@ -105,26 +105,26 @@ public class BlogServiceImpl implements BlogService {
         return blogDao.getBlogMessageTotal();
     }
 
-    // //查询博客详情
-    // @Override
-    // public DetailedBlog getDetailedBlog(Long id) {
-    //     DetailedBlog detailedBlog = blogDao.getDetailedBlog(id);
-    //     if (detailedBlog == null) {
-    //         throw new NotFoundException("该博客不存在");
-    //     }
-    //     String content = detailedBlog.getContent();
-    //     detailedBlog.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
-    //     //文章访问数量自增
-    //     blogDao.updateViews(id);
-    //     //文章评论数量更新
-    //     blogDao.getCommentCountById(id);
-    //     return detailedBlog;
-    // }
-    //
-    // //分类页面查询
-    // @Override
-    // public List<FirstPageBlog> getByTypeId(Long typeId) {
-    //     return blogDao.getByTypeId(typeId);
-    // }
+    //查询博客详情
+    @Override
+    public DetailedBlog getDetailedBlog(Long id) {
+        DetailedBlog detailedBlog = blogDao.getDetailedBlog(id);
+        if (detailedBlog == null) {
+            throw new NotFoundException("该博客不存在");
+        }
+        String content = detailedBlog.getContent();
+        detailedBlog.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        //文章访问数量自增
+        blogDao.updateViews(id);
+        //文章评论数量更新
+        blogDao.getCommentCountById(id);
+        return detailedBlog;
+    }
+
+    //分类页面查询
+    @Override
+    public List<FirstPageBlog> getByTypeId(Long typeId) {
+        return blogDao.getByTypeId(typeId);
+    }
 
 }

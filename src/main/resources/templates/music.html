@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>XXX-音乐盒</title>
+
+        <link href="../static/images/me.jpg" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+        <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+        <link rel="stylesheet" href="../static/lib/music/css/zplayer.min.css" th:href="@{/lib/music/css/zplayer.min.css}"/>
+        <script type="text/javascript" src="../static/lib/music/js/zplayer.min.js" th:src="@{/lib/music/js/zplayer.min.js}"></script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+
+
+    </head>
+    <body>
+
+        <!--导航-->
+        <nav class="gird-header">
+            <div class="ui container">
+                <div class="ui inverted secondary stackable menu">
+                    <h2 class="ui teal header item" style="font-family: STSong">XXX</h2>
+                    <a href="#" th:href="@{/}" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+                    <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="clone outline icon"></i>分类</a>
+                    <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="clock icon"></i>时间轴</a>
+                    <a href="#" th:href="@{/music}" class="active m-item item m-mobile-hide"><i class="music icon"></i>音乐盒</a>
+                    <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide"><i class="book icon"></i>留言板</a>
+                    <a href="#" th:href="@{/friends}" class="m-item item m-mobile-hide"><i class="pencil alternate icon"></i>朋友圈</a>
+                    <a href="#" th:href="@{/picture}" class="m-item item m-mobile-hide"><i class="image icon"></i>照片墙</a>
+                    <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+                    <div class="right m-item item m-mobile-hide">
+                        <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                            <div class="ui icon transparent input m-margin-tb-tiny" style="color: white">
+                                <input style="color: white" type="text" name="query" placeholder="Search...." th:value="${query}">
+                                <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+                <i class="sidebar icon"></i>
+            </a>
+        </nav>
+
+        <!--顶部图片-->
+        <div class="m-bg-type_outer" style="width: 100%;height: 40%">
+            <img src="../static/images/musicbg.jpg" th:src="@{/images/musicbg.jpg}" alt="" class="ui m-bg image" style="width: 100%;height: 100%">
+            <div class="m-bg-class_cover">
+                <div class="ui container" align="center" style="position: relative ;bottom: -540px;">
+                    <div class="m-font-size-title m-right-bottom" align="center" style="font-family:'STXingkai'">
+                        音乐盒
+                    </div>
+                    <div class="m-font-size-text-init-title m-margin-top" align="center">
+                        love and share, 不是大爱我不说
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui m-margin- m-opacity" align="center">
+            <div class="ui container box-shadow-max">
+                <div id="player2"></div>
+            </div>
+        </div>
+
+        <!--底部栏-->
+        <footer class="ui inverted vertical segment m-padded-tb-massive m-opacity">
+            <!--容器-->
+            <div class="ui center aligned container">
+                <div class="ui inverted divided stackable grid">
+                    <div class="four wide column">
+                        <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced m-margin-top-max">
+                            联系我
+                        </div>
+                        <div class="ui inverted link list">
+                            <div href="#" class="m-text-thin">Email：XXX@163.com</div>
+                        </div>
+                    </div>
+
+                    <div class="four wide column">
+                        <div class="ui inverted link list">
+                            <div class="item">
+                                <!--微信二维码-->
+                                <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced ">
+                                    微信
+                                </div>
+                                <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" class="ui m-margin-top rounded image" alt="" style="width: 110px">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="four wide column">
+                        <div class="ui inverted link list">
+                            <div class="item">
+                                <!--QQ二维码-->
+                                <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced ">
+                                    QQ
+                                </div>
+                                <img src="../static/images/qq.jpg" th:src="@{/images/qq.jpg}" class="ui m-margin-top rounded image" alt="" style="width: 110px">
+                            </div>
+                        </div>
+                    </div>
+                    <!--博客运行时间统计-->
+                    <div class="four wide column">
+                        <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top">
+                            博客信息
+                        </div>
+                        <div id="blog-message">
+                            <div class="ui inverted link list" style="align-content: center;margin-top: 10px" th:fragment="blogMessage">
+                                <div class="m-text-thin" style="text-align: left;margin-left: 75px;">
+                                    文章总数：
+                                    <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogTotal}"> 2 </h2> 篇
+                                </div>
+                                <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                                    访问总数：
+                                    <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogViewTotal}"> 2 </h2> 次
+                                </div>
+                                <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                                    评论总数：
+                                    <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogCommentTotal}"> 2 </h2> 条
+                                </div>
+                                <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                                    留言总数：
+                                    <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogMessageTotal}"> 2 </h2> 条
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui inverted section divider"></div>
+                <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">
+                    我的博客已维护：<span id="htmer_time" class="item m-text-thin"></span> (*๓´╰╯`๓)
+                </div>
+                <a rel="nofollow" href="#" target="_blank">Copyright ©XXX 2022 All Rights Reserved</a>
+            </div>
+            </div>
+
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+
+        <script>
+            var zp2 = new zplayer({
+                element: document.getElementById("player2"),
+                lrcStart: 1,/*是否开启歌词功能 ，默认false（为true时musics集合中需要传入lrc字段。）*/
+                musics: [{
+                    title: "温蒂公主的侍卫",
+                    author: "告五人",
+                    url: "http://music.163.com/song/media/outer/url?id=1807796555.mp3",
+                    pic: "https://p1.music.126.net/5URIeP6GjMFg_hKhGloNTA==/109951165585701063.jpg?param=300y300",
+                    lrc: "[00:34.410]亲爱的\n[00:36.690]我现在要对你 告白\n[00:40.960]但或许不是 那么简单\n[00:45.310]请亮着双眼 听我说\n[00:51.880]亲爱的\n[00:54.060]或许我们 不会永远\n[00:58.278]永远陪伴 在彼此身边\n[01:02.881]意外和明天或谁\n[01:07.274]比我更耀眼\n[01:09.442]但你\n[01:11.454]像蓝天般的你\n[01:16.003]全存在我心底\n[01:20.314]久而久之 变成唯一\n[01:26.753]亲爱的\n[01:29.083]眼泪 别轻易地掉\n[01:33.384]珍贵的要守护好\n[01:37.604]如果不小心我突然离你而去\n[01:44.473]亲爱的\n[01:46.443]你会不会还记得\n[01:50.663]曾有人为你唱歌\n[01:55.083]一夜又一夜地唱\n[02:01.802]但你\n[02:03.933]像蓝天般的你\n[02:08.306]全存在我心底\n[02:12.994]久而久之变成唯一\n[02:19.205]而妳\n[02:21.403]圆圈夕阳的你\n[02:25.774]全存在我心里\n[02:30.425]眼睛看着晕黄散去\n[02:36.996]\n[03:11.614]但你\n[03:13.843]像蓝天般的你\n[03:18.123]全存在我心底\n[03:22.683]久而久之变成唯一\n[03:29.163]而妳\n[03:31.306]圆圈夕阳的你\n[03:35.653]全存在我心里\n[03:40.145]眼睛看着晕黄散去\n[03:46.604]亲爱的\n[03:48.645]你会不会还记得\n[03:52.934]曾有人为你唱歌\n[03:57.313]一夜又一夜地\n[03:59.544]唱\n[04:01.054]"
+                }, {
+                    title: "不吐不快",
+                    author: "张敬轩",
+                    url: "http://music.163.com/song/media/outer/url?id=188878.mp3",
+                    pic: "https://p1.music.126.net/di32NCRtCaHRWWWhRUvw3w==/109951165230284792.jpg?param=300y300",
+                    lrc: "[00:31.56]为何共那又来又往\n[00:33.93]没情没趣无情份的\n[00:36.17]竟比你都更频繁畅聚\n[00:39.35]\n[00:40.31]为何遇到别人问好\n[00:42.62]为何和你没有需要\n[00:44.84]花心机讲好说话一句\n[00:48.46]\n[00:49.10]为何若有无聊事干\n[00:51.38]便宁愿上载到电脑\n[00:53.60]早已忘掉怎跟你吹水\n[00:57.84]为何难得尚能腾空\n[01:00.10]坐在戏院主角自杀\n[01:02.32]你共我竟过倦而进睡\n[01:05.85]过去共你\n[01:06.91]怎么去比\n[01:08.00]哪理会你\n[01:09.11]赶得要死\n[01:10.26]也爱用整晚说杜琪峰专长\n[01:13.19]揭露命途无常的道理\n[01:16.72]讲破天地讲到自己\n[01:20.30]不觉迎面太阳已经升起\n[01:23.55]只怕无法再有这种情怀\n[01:27.60]优美得共你同时在这世界\n[01:31.98]丑恶在于 赤子的胸怀\n[01:36.10]难敌这纷扰世态\n[01:38.52]为理想或求生在捱\n[01:40.83]该理解\n[01:41.61]没完没了各有需要把青春贱卖\n[01:45.09]怎逛街\n[01:45.90]渐行渐远每天很快淡出得更快\n[01:49.48]这宇宙太大\n[01:51.59]握手将要安排\n[01:53.57]原谅我悲观过界\n[01:56.03]但血啃在喉中 不吐不快\n[02:01.71]\n[02:03.17]为何为了别烦着你\n[02:05.53]别妨碍你悠然睡去\n[02:07.72]不忍太早太夜回你电\n[02:11.30]\n[02:12.01]为何大家为求梦想\n[02:14.33]为求上进没有空档\n[02:16.44]分担怎么跟压力挑战\n[02:19.91]\n[02:20.80]为何为了未来易过\n[02:23.03]便勤力到忘掉共你\n[02:25.18]兜半晚风不需太多钱\n[02:29.55]为何大家渐明大体\n[02:31.82]再没有胆不理夜半\n[02:33.93]有没有紧要事仍见面\n[02:37.50]过去共你\n[02:38.53]怎么去比\n[02:39.62]哪理会你\n[02:40.68]赶得要死\n[02:41.78]也爱用整晚畅论人家感情\n[02:44.84]最后为何完结的道理\n[02:48.27]讲破天地 讲到自己\n[02:51.93]不觉残酷太阳已经升起\n[02:55.21]只怕无法再有这种情怀\n[02:59.29]优美得共你同时在这世界\n[03:03.64]丑恶在于 赤子的胸怀\n[03:07.74]难敌这纷扰世态\n[03:10.16]为理想或求生在捱\n[03:12.37]该理解\n[03:13.17]没完没了各有需要把青春贱卖\n[03:16.74]怎逛街\n[03:17.56]渐行渐远每天很快淡出得更快\n[03:21.11]这宇宙太大\n[03:23.22]握手将要安排\n[03:25.19]原谅我悲观过界\n[03:27.66]但血哽在喉中 不吐不快\n[03:34.26]\n[03:35.30]如何勤劳 便有什么出路\n[03:39.11]令你与我少了几里漫步\n[03:42.92]没能力坐到老\n[03:45.11]出世需要进步\n[03:47.01]你我再好也难逃这个轨道\n[03:52.95]\n[03:53.84]该理解\n[03:54.70]没完没了各有需要把青春贱卖\n[03:58.19]怎逛街\n[03:58.95]渐行渐远每天很快淡出得更快\n[04:02.55]这宇宙太大\n[04:04.70]握手将要安排\n[04:06.67]原谅我悲观过界\n[04:09.13]但血哽在喉中 不吐不快\n[04:14.95]\n[04:16.22]任何密友任何伴侣\n[04:18.68]和谐互斗投缘互信尊敬\n[04:21.41]退缩生疏挂心\n[04:23.01]忽近又远跟世态摇摆\n[04:26.04]\n[04:27.08]见惯不会怪\n"
+                }, {
+                    title: "亡命之徒",
+                    author: "纵贯线",
+                    url: "http://music.163.com/song/media/outer/url?id=394685.mp3",
+                    pic: "https://p2.music.126.net/w_GibvAuVldUYyVpXoDE9A==/41781441867524.jpg?param=300y300",
+                    lrc: "[00:20.460]听我说 我原来有个梦\n[00:22.890]跟你高飞远走 跟你一起走到白头\n[00:25.430]但是我 拥有化为乌有\n[00:27.500]忘记我们承诺 忘记曾经爱你爱的那么浓\n[00:30.810]我不能带你走 我犯了大错\n[00:33.160]必须一个人走 必须扛下所有罪过\n[00:36.130]必须离开熟悉的街口 请你不要忘记我\n[00:39.390]这夜里有小雨飘在空中\n[00:41.450]当我扣扳机的瞬间 灵魂早已卖给魔鬼\n[00:44.660]可笑的是 我好想求主帮我赎回\n[00:46.970]赎回我那一丁点的尊严\n[00:49.680]想起妈妈的脸 对不起这几年\n[00:52.210]是否有机会再见你一面\n[00:54.180]妈妈我犯了错 你会原谅我吗?\n[00:57.060]我已经踏上了末路\n[00:58.690]别人眼中的亡命之徒 哪里还有我的藏身处?\n[01:02.190]我的兄弟 离我远去 我还傻呼呼的相信道义\n[01:06.770]所谓的人性莫非要用血和泪来换取教训\n[01:10.360]不想再混下去\n[01:12.070]想说干完这一票就不再撩下去\n[01:15.170]想着想着我的眼泪就流不停\n[01:17.450]\n[01:17.850]出发啦 不要问那路在哪?\n[01:21.660]迎风向前 是唯一的方法\n[01:26.660]出发啦 不想问那路在哪?\n[01:31.160]运命哎呀 什么关卡?\n[01:35.950]当车声隆隆 梦开始阵痛\n[01:40.630]它卷起了风 重新雕塑每个面孔\n[01:45.620]夜雾那么浓 开阔也汹涌\n[01:50.300]有一种预感 路的终点是迷宫\n[01:54.390]\n[01:54.770]喂 小子 我想我大概明白你的意思\n[01:58.570]那些发生在你身上的\n[02:00.330]曾经以不同的面貌 也在我生命里出现过好几次\n[02:04.470]对此 我并无更高明的解释\n[02:06.840]只是觉得今天说不定是个合适的日子\n[02:10.020]我们就各自用舒服的姿势\n[02:12.290]用擅长的方式 给人生我们的\n[02:14.560]不管是一种告解还是一份答辩词\n[02:17.430]人再有本事也难抵抗命运的不仁慈\n[02:20.890]这道理再简单不过 接不接受是另外一回事\n[02:24.220]真爱并非不来 它只是被无预警的恶意的延迟\n[02:28.290]不要让某个女人做的蠢事\n[02:30.000]变成你自己与自己的争执\n[02:32.460]为什么 该有的都有还是觉得不够\n[02:35.380]天呀 该不会是贪心的念头\n[02:37.680]为什么 拼了命地工作 拼了命地追梦\n[02:40.650]到头来原地没有动过\n[02:42.480]为什么 万里晴空下的面孔\n[02:44.530]庸庸碌碌不开心地锁着眉头 要向谁哭诉\n[02:47.220]为什么 想去看场电影\n[02:49.220]该死的台风偏偏选在每一个的周末\n[02:52.190]为什么 这个世界上 就是有人穷得发疯\n[02:54.960]有人富有 把钞票当作了枕头\n[02:57.420]为什么 新闻里 鼻酸故事 只为了\n[02:59.850]偷面包给妈妈 充饥的小偷\n[03:02.260]为什么 一百个为什么\n[03:03.920]变成一千个 一万个 十万个 为什么\n[03:06.830]为什么 我想破头写不出个鸟 念念念\n[03:10.400]我为了什么\n[03:15.140]\n[03:29.820]我们都不必在意未来的样子\n[03:32.510]像是精神病患写的诗 或是烟花绽放的节日\n[03:36.630]随它去吧 我们都只活一次\n[03:39.670]呼吸呼吸呼吸 呼 一切曳然而止\n[03:45.520]真理在荒谬被证实以前 都只是暗室里的装饰\n[03:50.400]只有眼前亮起来了以后\n[03:52.830]才有机会彰显它的价值 不是谁能决定的\n[03:57.340]该漫游还是冲刺\n[03:59.700]我们都在海里 我觉得我们像沙子\n[04:03.540]你说的亡命之徒 是不是大概就是这个意思\n[04:07.230]出发啦 不要问那路在哪(亡命之徒 可会全力以赴)\n[04:10.790]迎风向前 是唯一的方法(是不是穷途末路 有没有藏身之处)\n[04:16.720]出发啦 不想问那路在哪(亡命之徒 逃亡要全力以赴)\n[04:20.320]运命哎啊 什么关卡(喘息在穷途末路 给我个藏身之处)\n[04:25.480]当车声隆隆 梦开始阵痛(亡命之徒 可会全力以赴)\n[04:30.130]它卷起了风 重新雕塑每个面孔(是不是穷途末路 有没有藏身之处)\n[04:34.870]夜雾那么浓 开阔也汹涌(亡命之徒 逃亡要全力以赴)\n[04:39.700]有一种预感 路的终点是迷宫(喘息在穷途末路 给我个藏身之处)\n[04:44.710]\n[04:45.310]出发啦 不要问那路在哪(亡命之徒 可会全力以赴)\n[04:48.630]迎风向前 是唯一的方法(是不是穷途末路 有没有藏身之处)\n[04:54.230]出发啦 不想问那路在哪(亡命之徒 逃亡要全力以赴)\n[04:57.930]运命哎啊 什么关卡(喘息在穷途末路 给我个藏身之处)\n[05:03.240]当车声隆隆 梦开始阵痛(亡命之徒 可会全力以赴)\n[05:07.880]它卷起了风 重新雕塑每个面孔(是不是穷途末路 有没有藏身之处)\n[05:12.560]夜雾那么浓 开阔也汹涌(亡命之徒 逃亡要全力以赴)\n[05:17.260]有一种预感 路的终点是迷宫(喘息在穷途末路 给我个藏身之处)\n[05:24.050]\n"
+                }, {
+                    title: "L.O.V.E",
+                    author: "Rous",
+                    url: "http://music.163.com/song/media/outer/url?id=437246114.mp3",
+                    pic: "https://p2.music.126.net/BDreP8IsI9laBEO_3COejQ==/18732379603216477.jpg?param=300y300",
+                    lrc: "[00:00.49]You know fear is going to be a player in your life\n[00:03.68]But you get to decide how much.\n[00:05.82]You can spend your whole life imagining ghosts\n[00:08.12]Worrying about your pathway to the future\n[00:10.06]But all there will ever be is what’s happening here.\n[00:13.99]\n[01:13.23]How will you serve the world?\n[01:14.92]What do they need that your talent can provide?\n[01:19.30]That’s all you have to figure out.\n[01:21.90]As someone who has done what you are about to going do\n[01:24.04]I can tell you from experience\n[01:25.63]The effect you have on others\n[01:27.17]Is the most valuable currency there is\n[01:30.86]There will always be someone\n[01:32.46]Who seems to be doing better than you.\n[01:33.85]No matter what you gain, ego will not let you rest.\n[01:38.63]It will tell you that you cannot stop\n[01:40.72]Until you’ve left an indelible mark on the earth\n[01:43.76]Until you’ve achieved immortality.\n[01:46.80]How tricky is this ego that it would tempt us\n[01:51.43]With the promise of something we already possess\n[01:55.13]As far as I can tell,\n[01:56.23]It’s just about letting the universe know what you want\n[01:59.32]And working toward it\n[02:00.46]While letting go of how it comes to pass.\n[02:03.40]And when the door opens in real life, just walk through it.\n[02:06.88]\n[03:01.85]That peace that we’re after\n[03:04.29]Lies somewhere beyond personality\n[03:06.79]Beyond the perception of others\n[03:08.53]Beyond invention and disguise\n[03:09.72]Even beyond effort itself\n[03:11.91]You can join the game, fight the wars\n[03:14.55]Play with form all you want\n[03:17.83]But to find real peace\n[03:20.12]You have to let the armor fall\n[03:21.21]\n[03:22.90]Your need for acceptance\n[03:23.84]Can make you invisible in this world.\n[03:28.32]Don’t let anything stand in the way of the light\n[03:30.66]That shines through this form\n[03:32.36]Risk being seen in all of your glory\n[03:38.48]\n[04:31.26]You are ready and able to do beautiful things in this world\n[04:35.89]And after you walk through those doors today\n[04:37.98]You will only ever have two choices:\n[04:40.72]Love or fear. Choose love.\n"
+                }, {
+                    title: "素晴らしき日常",
+                    author: "高橋優",
+                    url: "http://music.163.com/song/media/outer/url?id=529961.mp3",
+                    pic: "https://p1.music.126.net/bDs-Tz-JRaMogWuY1_tjUw==/905997581287645.jpg?param=300y300",
+                    lrc: "[00:22.710]麗しき国に生まれすこやかに育んで\n[00:26.390]この上ない程の幸せを僕は知ってて\n[00:29.950]それでいても尚湧いてくる欲望の数々\n[00:33.620]「満たされない」「物足りない」何かに腹が立つ\n[00:37.700]いっそのこと世界中の札束シュレッダーにかけよう\n[00:44.460]そうしたらこのギスギスした\n[00:47.830]気持ちがいかにバカバカしいか分かるよ\n[00:51.860]それはそうと詳細なことまでは知らないけど\n[00:55.470]真面目で頑張り屋なように見えていたあの人が\n[00:59.130]お金と愛情と覚醒剤をハキ違えて \n[01:02.620]あげ足とりたがりの人々を喜ばせた\n[01:06.660]僕らが生まれたことに理由（わけ）なんて\n[01:11.250]あってもなくてもいい\n[01:13.340]なんにしたって呼吸し脈打ってる\n[01:16.710]あそこの人もこの人も同じこのときを\n[01:21.660]また笑うことはできるかい? \n[01:25.230]まだやりたいことはあるかい?\n[01:28.830]そこから覗いてる西日の色はどんなんだい?\n[01:35.650]失望することばかりさ 希望を持って生きていれば\n[01:43.410]でも通じ合っているような気がする この一瞬を\n[01:50.100]愛して ただ愛して 生きてゆけるのなら\n[01:56.780]きっと明日は素晴らしい\n[02:02.930]\n[02:08.220]「別にいじめたくていじめていたわけじゃないけど、\n[02:11.670]やらなきゃ今度は僕がやられる気がしたんだ」と\n[02:15.410]泣きながら語る少年に全てを擦り付け\n[02:19.100]あげ足とりたがりのチャンネルが正義を語る\n[02:22.980]きっと僕らに悪意があるわけじゃないと思う\n[02:29.610]どうしたらいいのか分かんないだけ \n[02:33.450]模索しながら傷付いて傷付ける\n[02:37.380]麗しき国に生まれ育ってしまったために\n[02:40.890]どれもこれもあって当たり前の日々を生きて\n[02:44.480]完璧なものだけを欲しがっていった始末に\n[02:48.260]完璧じゃない人間を遠ざける人々\n[02:51.890]僕らが生きてることに理由（わけ）なんて\n[02:56.750]あってもなくてもいい\n[02:58.980]なんにしたって泣いて笑っている\n[03:02.250]あの少年も政治家も 同じこの星を\n[03:06.620]まだ歩くことはできるかい? \n[03:10.610]転んでも起き上がれるかい?\n[03:14.170]そこから覗いてる景色は天国でも地獄でもない先進途上国\n[03:21.450]失望することばかりでも \n[03:25.160]目を見張る価値があるもの\n[03:28.710]その通じ合っているような気がする目の前の人を\n[03:35.660]愛して ただ愛して 支え合ってゆけるなら\n[03:42.190]きっとまだ間に合うよ\n[03:48.720]\n[04:00.970]間違いだらけでいいじゃないか \n[04:05.190]街が腐りきってていいじゃないか\n[04:08.820]そこから覗いてる景色は天国にも地獄にも変えられるよ\n[04:15.640]まだ笑うことはできるかい? まだ歩くことはできるかい?\n[04:23.380]その通じ合っているような気がする人を連れて\n[04:29.990]愛し合う人の間から生まれてきた\n[04:37.140]僕らの明日が待ってる きっと世界は素晴らしい\n[04:50.890]\n"
+                }, {
+                    title: "Everglow",
+                    author: "Coldplay",
+                    url: "http://music.163.com/song/media/outer/url?id=1448421768.mp3",
+                    pic: "https://p2.music.126.net/xT_57cghY8qDsZid_-UUpw==/109951164990091853.jpg?param=300y300",
+                    lrc: "\n[00:13.20]Oh they say people come say people go，\n[00:20.19]This particular diamond was extra special，\n[00:26.66]I know you might be gone and the world may not know，\n[00:32.85]Still I see you celestial，\n[00:40.12]and I should but I can't let you go，\n[00:48.84]When I'm cold cold，\n[00:55.36]and when I'm cold cold，\n[01:02.18]There's a light that you give me when I'm in shadow，\n[01:08.85]There's a feeling you give me everglow，\n[01:28.77]Like brothers in blood sisters who ride，\n[01:35.59]And we swore on that night we'd be friends 'til we die，\n[01:41.94]But the changing of winds and the way waters flow，\n[01:48.16]Life is short as the falling of snow，\n[01:54.65]And now I'm gonna miss you I know，\n[02:04.22]When I'm cold cold，\n[02:10.76]In water rolled salt，\n[02:17.79]I know that you're always with me and the way you will show，\n[02:24.91]And you're with me wherever I go，\n[02:31.81]And you give me this feeling this everglow，\n[02:57.87]Oh what I give for just a moment to hold，\n[03:04.14]Because I live for this feeling this everglow，\n[03:24.22]So if you love someone you should let them know，\n[03:30.50]Oh the light that you give me will everglow，\n"
+                }, {
+                    title: "Bad Liar",
+                    author: "Imagine Dragons",
+                    url: "http://music.163.com/song/media/outer/url?id=1368709511.mp3",
+                    pic: "https://p1.music.126.net/SA1g2q8f4vJwaOsGK4_HDA==/109951164111109743.jpg?param=300y300",
+                    lrc: "\n[00:04.90]Oh, hush, my dear, it's been a difficult year\n[00:10.19]And terrors don’t prey on innocent victims\n[00:16.55]Trust me, darlin', trust me darlin'\n[00:25.60]It’s been a loveless year\n[00:28.81]I'm a man of three fears:\n[00:31.64]Integrity, faith, and crocodile tears and\n[00:37.64]Trust me, darlin', trust me, darlin'\n[00:46.40]So look me in the eyes, tell me what you see\n[00:52.24]Perfect paradise, tearin' at the seams\n[00:57.62]I wish I could escape it, no, I don't wanna fake \n[01:03.15]Wish I could erase it, make your heart believe\n[01:07.77]But I'm a bad liar, bad liar\n[01:14.21]Now you know, now you know\n[01:18.93]I'm a bad liar, bad liar\n[01:24.72]And now you know, you’re free to go\n[01:31.51]Did all my dreams never mean one thing?\n[01:36.72]Does happiness lie in a diamond ring?\n[01:42.10]Oh, I’ve been askin' for—\n[01:44.83]Oh, I’ve been askin' for problems, problems, problems\n[01:53.01]I wage my war, on the worlds inside\n[01:58.36]I take my gun to the enemy's side\n[02:03.75]Oh, I've been askin’ for—\n[02:06.24]Oh, I've been askin' for problems, problems, problems\n[02:13.06]So look me in the eyes, tell me what you see\n[02:18.46]Perfect paradise, tearin' at the seams\n[02:23.87]I wish I could escape it, no, I don't wanna fake \n[02:29.52]Wish I could erase it, make your heart believe\n[02:34.03]But I'm a bad liar, bad liar\n[02:40.30]Now you know, now you know\n[02:45.38]I'm a bad liar, bad liar\n[02:51.04]Now you know, you're free to go\n[02:57.81]I can't breathe, I can't be\n[03:03.03]I can't be what you want me to be\n[03:09.21]Believe me this one time\n[03:13.11]Believe me\n[03:17.52]I'm a bad liar, bad liar\n[03:23.54]Now you know, now you know\n[03:28.65]I'm a bad liar, bad liar\n[03:34.20]Now you know, you're free to go\n[03:41.16]Oh-oh-oh, oh, oh-oh, oh\n[03:53.64]Please believe me, please believe me\n[03:59.04]\n"
+                }, {
+                    title: "Last Dance",
+                    author: "伍佰",
+                    url: "http://music.163.com/song/media/outer/url?id=157276.mp3",
+                    pic: "https://p2.music.126.net/HDdQFXVIlRvR96s0mQyu9g==/109951164170257125.jpg?param=300y300",
+                    lrc: "\n[00:07.047] 所以暂时将你眼睛闭了起来\n[00:13.399] 黑暗之中漂浮我的期待\n[00:19.779] 平静脸孔映着缤纷色彩\n[00:26.154] 让人好不疼爱\n[00:31.401] 你可以随着我的步伐\n[00:34.929] 轻轻柔柔的踩\n[00:38.929] 将美丽的回忆慢慢重来\n[00:45.313] 突然之间浪漫无法释怀\n[00:51.678] 明天我要离开\n[00:56.794] 你给的爱\n[01:03.111] 无助的等待\n[01:09.474] 是否我一个人走\n[01:12.646] 想听见你的挽留\n[01:17.048] 春风秋雨 飘飘落落 只为寂寞\n[01:22.201] 你给的爱\n[01:28.507] 甜美的伤害\n[01:34.909] 深深的锁住了我\n[01:38.114] 隐藏不住的脆弱\n[01:42.546] 泛滥河水将我冲向你的心头\n[01:47.585] 不停流\n[01:49.703]\n[02:00.321] 啊\n[02:01.856]\n[02:14.216] 所以暂时将你眼睛闭了起来\n[02:20.587] 可以慢慢滑进我的心怀\n[02:26.897] 舞池中的人群渐渐散开\n[02:33.281] 应该就是现在\n[02:38.390] 你给的爱\n[02:44.788] 无助的等待\n[02:51.208] 是否我一个人走\n[02:54.296] 想听见你的挽留\n[02:58.714] 春风秋雨 飘飘落落 只为寂寞\n[03:03.727] 你给的爱\n[03:10.146] 甜美的伤害\n[03:16.480] 想问问你的心中\n[03:19.738] 不愿面对的不懂\n[03:24.109] 明天之后\n[03:26.117] 不知道面前的你是否依然爱我\n[03:32.232]\n[03:41.851] 啊\n[03:43.268]\n[03:55.095] 不知道\n[03:59.832]"
+                }, {
+                    title: "18",
+                    author: "G.E.M 邓紫棋",
+                    url: "http://music.163.com/song/media/outer/url?id=233955.mp3",
+                    pic: "https://p1.music.126.net/btmsQGuCwT6YNbbaOwGqxw==/109951165628217052.jpg?param=300y300",
+                    lrc: "\n[00:40.88]回望当天贪玩大过忘形\n[00:48.57]连大考都竟敢放肆即兴\n[00:56.26]从未肯谦虚倾听 从不肯小心改正\n[01:04.03]曾经错对未会望清\n[01:12.03]而慢慢开始将稚气暂停\n[01:19.80]现实种种的挑战要适应\n[01:27.62]如顺景当然高兴 如出错虚心改正\n[01:35.31]而这种改变今天可见证\n[01:42.23]这刻我想亲身致谢\n[01:50.16]往昔你真心的爱惜\n[01:57.94]从未离开拖紧我 走过黑夜\n[02:06.54]而使我更学会独立些\n[02:13.15]这刻我想亲身致谢\n[02:21.17]你使我的心不再野\n[02:29.06]陪着成长多得你 我一再感谢\n[02:37.39]从今天起我真的不撒野\n[02:49.49]从今天起我 我真的不撒野\n"
+                }, {
+                    title: "陀飞轮",
+                    author: "陈奕迅",
+                    url: "http://music.163.com/song/media/outer/url?id=64638.mp3",
+                    pic: "https://p2.music.126.net/qE_9M-Ge5qwuk55IfkNO2g==/109951163200234557.jpg?param=300y300",
+                    lrc: "\n[00:15.81]过去十八岁没戴表\n[00:18.51]不过有时间\n[00:22.87]够我没有后顾 野性贪玩\n[00:29.97]霎眼廿七岁 时日无多\n[00:33.27]方不敢偷懒\n[00:35.57]宏愿纵未了 奋斗总不太晚\n[00:41.78]然后突然今秋\n[00:45.23]望望身边 应该有 已尽有\n[00:49.89]我的美酒跑车相机金表\n[00:53.84]也讲究\n[00:57.04]直到世间个个也妒忌\n[01:01.00]仍不怎麼富有\n[01:04.85]用我尚有换我没有\n[01:08.05]其实已用尽所拥有\n[01:11.21]曾付出 几多心跳\n[01:14.91]来换取一堆堆的发票\n[01:18.56]人值得 命中减少几秒\n[01:22.97]多买一只表\n[01:26.07]秒速 捉得紧了\n[01:29.27]而皮肤竟偷偷松了\n[01:32.78]为何用到尽了\n[01:35.13]至知哪样紧要\n[01:53.42]劳力是无止境\n[01:56.82]活著多好 不需要靠物证\n[02:01.47]也不以高薪高职高级品\n[02:05.50]搏尊敬 no\n[02:08.65]就算搏到伯爵那地位\n[02:12.71]和萧邦的隽永\n[02:16.36]卖了任性 日拼夜拼\n[02:19.72]忘掉了为甚麼高兴\n[02:22.92]曾付出 几多心跳\n[02:26.52]来换取一堆堆的发票\n[02:30.03]人值得 命中减少几秒\n[02:34.58]多买一只表\n[02:37.74]秒速 捉得紧了\n[02:40.74]而皮肤竟偷偷松了\n[02:44.39]为何用到尽了\n[02:46.65]至知哪样紧要\n[02:51.95]记住那关於光阴的教训\n[02:55.81]回头走 天已暗\n[02:58.71]你献出了十吋时和分\n[03:03.16]可有换到十吋金\n[03:09.76]还剩低 几多心跳\n[03:13.07]人面跟水晶表面对照\n[03:16.72]连自己亦都分析不了\n[03:21.18]得到多与少\n[03:24.18]也许真的疯了\n[03:27.23]那个倒影 多麼可笑\n[03:31.04]灵魂若变卖了\n[03:33.19]上链也没心跳\n[03:38.19]银或金 都不紧要\n[03:41.75]谁造机芯 一样了\n[03:44.70]计划了 照做了 得到了\n[03:48.00]时间却太少 no...\n[03:52.41]还剩低 几多心跳\n[03:56.01]还在数 赶不及了\n[04:00.47]昂贵是这刻 我觉悟了\n[04:07.67]在时计里 看破一生\n[04:16.33]渺渺"
+                }]
+            })
+            zp2.init();
+
+            $('.menu.toggle').click(function () {
+                $('.m-item').toggleClass('m-mobile-hide');
+            });
+
+            $('#blog-message').load(/*[[@{/footer/blogmessage}]]*/"/footer/blogmessage");
+
+            // 运行时间统计
+            function secondToDate(second) {
+                if (!second) {
+                    return 0;
+                }
+                var time = new Array(0, 0, 0, 0, 0);
+                if (second >= 365 * 24 * 3600) {
+                    time[0] = parseInt(second / (365 * 24 * 3600));
+                    second %= 365 * 24 * 3600;
+                }
+                if (second >= 24 * 3600) {
+                    time[1] = parseInt(second / (24 * 3600));
+                    second %= 24 * 3600;
+                }
+                if (second >= 3600) {
+                    time[2] = parseInt(second / 3600);
+                    second %= 3600;
+                }
+                if (second >= 60) {
+                    time[3] = parseInt(second / 60);
+                    second %= 60;
+                }
+                if (second > 0) {
+                    time[4] = second;
+                }
+                return time;
+            }
+
+            function setTime() {
+                /*此处为网站的创建时间*/
+                var create_time = Math.round(new Date(Date.UTC(2022, 1, 1, 0, 0, 0)).getTime() / 1000);
+                var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+                currentTime = secondToDate((timestamp - create_time));
+                currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+                    + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+                    + '秒';
+                document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+            }
+
+            setInterval(setTime, 1000);
+
+
+        </script>
+    </body>
+</html>

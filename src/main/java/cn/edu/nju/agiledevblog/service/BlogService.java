@@ -30,14 +30,14 @@ public interface BlogService {
     //搜索博客管理列表
     List<BlogQuery> getBlogBySearch(SearchBlog searchBlog);
 
-    // //查询首页最新博客列表信息
-    // List<FirstPageBlog> getAllFirstPageBlog();
-    //
-    // //查询首页最新推荐信息
-    // List<RecommendBlog> getRecommendedBlog();
-    //
-    // //搜索博客列表
-    // List<FirstPageBlog> getSearchBlog(String query);
+    //查询首页最新博客列表信息
+    List<FirstPageBlog> getAllFirstPageBlog();
+
+    //查询首页最新推荐信息
+    List<RecommendBlog> getRecommendedBlog();
+
+    //搜索博客列表
+    List<FirstPageBlog> getSearchBlog(String query);
 
     //统计博客总数
     Integer getBlogTotal();
@@ -51,10 +51,10 @@ public interface BlogService {
     //统计留言总数
     Integer getBlogMessageTotal();
 
-    // //查询博客详情
-    // DetailedBlog getDetailedBlog(Long id);
-    //
-    // //根据TypeId查询博客列表，显示在分类页面
-    // List<FirstPageBlog> getByTypeId(Long typeId);
+    //查询博客详情
+    DetailedBlog getDetailedBlog(Long id);
+
+    //根据TypeId查询博客列表，显示在分类页面
+    List<FirstPageBlog> getByTypeId(Long typeId);
 
 }
