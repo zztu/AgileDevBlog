@@ -72,42 +72,42 @@
         </where>
     </select>
 
-<!--    &lt;!&ndash;查询首页最新博客列表信息&ndash;&gt;-->
-<!--    <resultMap id="firstPageBlog" type="cn.edu.nju.agiledevblog.queryvo.FirstPageBlog">-->
-<!--        <id property="id" column="id"/>-->
-<!--        <result property="title" column="title"/>-->
-<!--        <result property="firstPicture" column="first_picture"/>-->
-<!--        <result property="views" column="views"/>-->
-<!--        <result property="commentCount" column="comment_count"/>-->
-<!--        <result property="updateTime" column="update_time"/>-->
-<!--        <result property="description" column="description"/>-->
-<!--        <result property="typeName" column="name"/>-->
-<!--        <result property="nickname" column="nickname"/>-->
-<!--        <result property="avatar" column="avatar"/>-->
-<!--    </resultMap>-->
+    <!--查询首页最新博客列表信息-->
+    <resultMap id="firstPageBlog" type="cn.edu.nju.agiledevblog.queryvo.FirstPageBlog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="views" column="views"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="description" column="description"/>
+        <result property="typeName" column="name"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+    </resultMap>
 
-<!--    <select id="getFirstPageBlog" resultMap="firstPageBlog">-->
-<!--        select b.id,b.title,b.first_picture, b.views, b.comment_count,b.create_time,b.update_time,b.description,-->
-<!--        t.name ,u.nickname, u.avatar-->
-<!--        from myblog.t_blog b, myblog.t_type t,myblog.t_user u-->
-<!--        where b.type_id = t.id and  u.id = b.user_id order by b.create_time desc-->
-<!--    </select>-->
+    <select id="getFirstPageBlog" resultMap="firstPageBlog">
+        select b.id,b.title,b.first_picture, b.views, b.comment_count,b.create_time,b.update_time,b.description,
+        t.name ,u.nickname, u.avatar
+        from myblog.t_blog b, myblog.t_type t,myblog.t_user u
+        where b.type_id = t.id and  u.id = b.user_id order by b.create_time desc
+    </select>
 
-<!--    &lt;!&ndash;查询推荐文章&ndash;&gt;-->
-<!--    <select id="getAllRecommendBlog" resultType="cn.edu.nju.agiledevblog.queryvo.RecommendBlog">-->
-<!--        select * from myblog.t_blog where t_blog.recommend = true order by t_blog.create_time desc limit 4;-->
-<!--    </select>-->
+    <!--查询推荐文章-->
+    <select id="getAllRecommendBlog" resultType="cn.edu.nju.agiledevblog.queryvo.RecommendBlog">
+        select * from myblog.t_blog where t_blog.recommend = true order by t_blog.create_time desc limit 4;
+    </select>
 
-<!--    &lt;!&ndash;搜索文章&ndash;&gt;-->
-<!--    <select id="getSearchBlog" resultMap="firstPageBlog">-->
-<!--        <bind name="pattern" value="'%' + query + '%'" />-->
-<!--        select b.id,b.title,b.first_picture, b.views,b.comment_count,b.update_time,b.description,-->
-<!--        t.name ,-->
-<!--        u.nickname, u.avatar-->
-<!--        from myblog.t_blog b, myblog.t_type t,myblog.t_user u-->
-<!--        where b.type_id = t.id and  u.id = b.user_id and (b.title like #{pattern} or b.content like  #{pattern})-->
-<!--        order by b.update_time desc-->
-<!--    </select>-->
+    <!--搜索文章-->
+    <select id="getSearchBlog" resultMap="firstPageBlog">
+        <bind name="pattern" value="'%' + query + '%'" />
+        select b.id,b.title,b.first_picture, b.views,b.comment_count,b.update_time,b.description,
+        t.name ,
+        u.nickname, u.avatar
+        from myblog.t_blog b, myblog.t_type t,myblog.t_user u
+        where b.type_id = t.id and  u.id = b.user_id and (b.title like #{pattern} or b.content like  #{pattern})
+        order by b.update_time desc
+    </select>
 
     <!--统计博客信息-->
     <select id="getBlogTotal" resultType="Integer">
@@ -123,29 +123,29 @@
         select count(*) from myblog.t_message
     </select>
 
-<!--    <resultMap id="detailedBlog" type="cn.edu.nju.agiledevblog.queryvo.DetailedBlog">-->
-<!--        <id property="id" column="bid"/>-->
-<!--        <result property="firstPicture" column="first_picture"/>-->
-<!--        <result property="flag" column="flag"/>-->
-<!--        <result property="title" column="title"/>-->
-<!--        <result property="content" column="content"/>-->
-<!--        <result property="typeName" column="name"/>-->
-<!--        <result property="views" column="views"/>-->
-<!--        <result property="commentCount" column="comment_count"/>-->
-<!--        <result property="updateTime" column="update_time"/>-->
-<!--        <result property="commentabled" column="commentabled"/>-->
-<!--        <result property="shareStatement" column="share_statement"/>-->
-<!--        <result property="appreciation" column="appreciation"/>-->
-<!--        <result property="nickname" column="nickname"/>-->
-<!--        <result property="avatar" column="avatar"/>-->
-<!--    </resultMap>-->
+    <resultMap id="detailedBlog" type="cn.edu.nju.agiledevblog.queryvo.DetailedBlog">
+        <id property="id" column="bid"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="flag" column="flag"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="typeName" column="name"/>
+        <result property="views" column="views"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="shareStatement" column="share_statement"/>
+        <result property="appreciation" column="appreciation"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+    </resultMap>
 
-<!--    &lt;!&ndash;博客详情查询&ndash;&gt;-->
-<!--    <select id="getDetailedBlog" resultMap="detailedBlog">-->
-<!--        select b.id bid,b.first_picture,b.flag,b.title,b.content,b.views,b.comment_count,b.update_time,b.commentabled,b.share_statement,b.appreciation, u.nickname,u.avatar,t.name-->
-<!--        from myblog.t_blog b,myblog.t_user u, myblog.t_type t-->
-<!--        where b.user_id = u.id and b.type_id = t.id and b.id = #{id}-->
-<!--    </select>-->
+    <!--博客详情查询-->
+    <select id="getDetailedBlog" resultMap="detailedBlog">
+        select b.id bid,b.first_picture,b.flag,b.title,b.content,b.views,b.comment_count,b.update_time,b.commentabled,b.share_statement,b.appreciation, u.nickname,u.avatar,t.name
+        from myblog.t_blog b,myblog.t_user u, myblog.t_type t
+        where b.user_id = u.id and b.type_id = t.id and b.id = #{id}
+    </select>
 
     <!--文章访问自增-->
     <update id="updateViews" parameterType="cn.edu.nju.agiledevblog.entity.Blog">
@@ -159,11 +159,11 @@
         WHERE b.id = #{id}
     </update>
 
-<!--    &lt;!&ndash;根据TypeId查询博客列表，显示在分类页面&ndash;&gt;-->
-<!--    <select id="getByTypeId" resultMap="firstPageBlog">-->
-<!--        select b.id,b.title,b.first_picture, b.views, b.comment_count, b.update_time, b.description,t.name ,u.nickname, u.avatar-->
-<!--        from myblog.t_blog b, myblog.t_type t,myblog.t_user u-->
-<!--        where b.type_id = t.id and u.id = b.user_id and b.type_id = #{typeId} order by b.update_time desc-->
-<!--    </select>-->
+    <!--根据TypeId查询博客列表，显示在分类页面-->
+    <select id="getByTypeId" resultMap="firstPageBlog">
+        select b.id,b.title,b.first_picture, b.views, b.comment_count, b.update_time, b.description,t.name ,u.nickname, u.avatar
+        from myblog.t_blog b, myblog.t_type t,myblog.t_user u
+        where b.type_id = t.id and u.id = b.user_id and b.type_id = #{typeId} order by b.update_time desc
+    </select>
 
 </mapper>
